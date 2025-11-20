@@ -14,16 +14,13 @@ flowchart LR
 
     Client --> NotesCore[Notes Memory Core API]
     Client --> RAGCore[Notes Memory Core RAG Extension]
+    Client --> Summary[AI Summary Service]
+    Client --> Embed[AI Embedding Microservice]
 
-    NotesCore --> Embed[AI Embedding Microservice]
-    RAGCore --> Embed
-
-    NotesCore --> DB[(Postgres)]
+    NotesCore --> DB[(Postgres + pgvector)]
     RAGCore --> DB
-
-    RAGCore --> Summary[AI Summary Service]
-    Summary --> Client
 ```
+
 
 
 ---
