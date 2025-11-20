@@ -8,20 +8,23 @@ This organization contains **four coordinated microservices**, each deployed, co
 ## 🌐 System Architecture Overview
 
 ```mermaid
-flowchart TD
+flowchart LR
 
-    Client[Client Applications] --> NotesCore[Notes Memory Core API]
+    Client[Client Applications]
+
+    Client --> NotesCore[Notes Memory Core API]
     Client --> RAGCore[Notes Memory Core RAG Extension]
 
-    NotesCore --> EmbedService[AI Embedding Microservice]
-    RAGCore --> EmbedService
-
-    RAGCore --> SummaryService[AI Summary Service]
-    SummaryService --> Client
+    NotesCore --> Embed[AI Embedding Microservice]
+    RAGCore --> Embed
 
     NotesCore --> DB[(Postgres)]
     RAGCore --> DB
+
+    RAGCore --> Summary[AI Summary Service]
+    Summary --> Client
 ```
+
 
 ---
 
