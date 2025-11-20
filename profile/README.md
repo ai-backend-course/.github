@@ -10,43 +10,18 @@ This organization contains **four coordinated microservices**, each deployed, co
 ```mermaid
 flowchart TD
 
-    subgraph ClientApps[Client Applications]
-        A[Client / Browser] 
-        B[Internal Systems]
-    end
+    Client[Client Applications] --> NotesCore[Notes Memory Core API]
+    Client --> RAGCore[Notes Memory Core RAG Extension]
 
-    subgraph NotesMemoryCore[Notes Memory Core API]
-        N1[CRUD: Create and Get Notes]
-        N2[Stores Notes in Postgres]
-    end
+    NotesCore --> EmbedService[AI Embedding Microservice]
+    RAGCore --> EmbedService
 
-    subgraph EmbeddingService[AI Embedding Microservice]
-        E1[POST /embed]
-        E2[Real or Mock Embeddings]
-    end
+    RAGCore --> SummaryService[AI Summary Service]
+    SummaryService --> Client
 
-    subgraph RAGCore[Notes Memory Core RAG Extension]
-        R1[Generate Embeddings]
-        R2[Semantic Search using pgvector]
-        R3[Top K Retrieval]
-        R4[Prepare LLM Context]
-    end
-
-    subgraph SummaryService[AI Summary Service]
-        S1[POST /summary]
-        S2[LLM Summaries and Explanations]
-    end
-
-    A -->|Create Notes| NotesMemoryCore
-    NotesMemoryCore --> EmbeddingService
-    EmbeddingService --> NotesMemoryCore
-
-    A -->|Query Notes| RAGCore
-    RAGCore --> EmbeddingService
-    RAGCore --> SummaryService
-    SummaryService --> A
+    NotesCore --> DB[(Postgres)]
+    RAGCore --> DB
 ```
-
 
 ---
 
