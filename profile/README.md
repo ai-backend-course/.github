@@ -30,7 +30,6 @@ flowchart LR
     Orchestrator --> Summary
     Orchestrator --> Client
 
-    %% Standalone utility
     Embeddings
 
 ```
