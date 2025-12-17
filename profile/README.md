@@ -14,23 +14,12 @@ All services are containerized, deployed, documented, and built with production 
 ```mermaid
 flowchart LR
 
-    Client[Client / App]
-
-    RAG[RAG Backend]
-    Summary[Summary Service]
-    Orchestrator[Workflow Orchestrator]
-    Embeddings[Embedding Service]
-
     Client --> RAG
+    RAG --> Summary
     RAG --> Client
 
-    Client --> Summary
-
-    Orchestrator --> RAG
-    Orchestrator --> Summary
-    Orchestrator --> Client
-
     Embeddings
+
 
 ```
 
