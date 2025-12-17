@@ -1,7 +1,11 @@
-# 🧠 AI Backend Portfolio — Jeff Ellis  
-### A cohesive, production-grade ecosystem of Go microservices that together power a full Retrieval-Augmented Generation (RAG) AI backend.
+# 🧠 AI Backend Portfolio — Jeff Ellis
 
-This organization contains **four coordinated microservices**, each deployed, containerized, documented, and ready for professional backend and AI engineering workflows.
+### A production-grade, Go-based AI backend ecosystem focused on **Retrieval-Augmented Generation (RAG)** with a supporting orchestration layer.
+
+This organization contains a cohesive set of **AI backend microservices** designed to mirror real-world backend and AI engineering systems.
+The core focus is **RAG architecture**, supported by embeddings, summarization, and an optional orchestration layer.
+
+All services are containerized, deployed, documented, and built with production patterns in mind.
 
 ---
 
@@ -10,106 +14,136 @@ This organization contains **four coordinated microservices**, each deployed, co
 ```mermaid
 flowchart TD
 
-    subgraph Client Apps
-        A[Client / Browser] 
+    subgraph Clients
+        A[Client / Browser]
         B[Internal Systems]
     end
 
     subgraph NotesMemoryCore[Notes Memory Core API]
-        N1[CRUD: Create/Get Notes]
-        N2[Stores Notes in Postgres]
+        N1[CRUD: Create / Get Notes]
+        N2[Postgres Storage]
     end
 
     subgraph EmbeddingService[AI Embedding Microservice]
         E1[POST /embed]
-        E2[Real or Mock Embeddings]
+        E2[Mock or Real Embeddings]
     end
 
     subgraph RAGCore[Notes Memory Core — RAG Extension]
         R1[Generate Embeddings]
         R2[Semantic Search (pgvector)]
         R3[Top-K Retrieval]
-        R4[Prepare Context]
     end
 
     subgraph SummaryService[AI Summary Service]
         S1[POST /summary]
-        S2[LLM Summaries / Explanations]
+        S2[LLM Summaries]
     end
 
-    Client Apps -->|Create Notes| NotesMemoryCore
-    NotesMemoryCore --> EmbeddingService
-    EmbeddingService --> NotesMemoryCore
+    subgraph Orchestration[Workflow / Orchestration Layer]
+        O1[Intent Detection]
+        O2[Service Coordination]
+        O3[Evaluation & Tracing]
+    end
 
-    Client Apps -->|Query Notes| RAGCore
+    Clients -->|Create Notes| NotesMemoryCore
+    NotesMemoryCore --> EmbeddingService
+
+    Clients -->|Query| RAGCore
     RAGCore --> EmbeddingService
     RAGCore --> SummaryService
-    SummaryService --> Client Apps
+
+    Orchestration --> RAGCore
+    Orchestration --> SummaryService
+    Orchestration --> Clients
 ```
 
 ---
 
 # 📦 Repositories
 
-### **1. AI Embedding Microservice**  
-Deterministic & real OpenAI embeddings with rate limiting, validation, metrics, and secure middleware.  
-📌 https://github.com/ai-backend-course/ai-embedding-microservice
+### **1. Notes Memory Core — RAG Extension (Flagship)**
+
+A production-ready **Retrieval-Augmented Generation backend** built with Go, Postgres, and pgvector.
+Implements semantic search, embeddings, top-K retrieval, and context preparation for downstream AI tasks.
+
+📌 [https://github.com/ai-backend-course/notes-memory-core-rag](https://github.com/ai-backend-course/notes-memory-core-rag)
 
 ---
 
-### **2. Notes Memory Core — RAG Extension**  
-Vector search (pgvector), embeddings, semantic search, top-K retrieval, LLM query pipeline.  
-📌 https://github.com/ai-backend-course/notes-memory-core-rag
+### **2. Notes Memory Core**
+
+The foundational CRUD backend for storing and retrieving notes.
+Demonstrates clean service layout, Postgres integration, logging, and metrics.
+
+📌 [https://github.com/ai-backend-course/notes-memory-core](https://github.com/ai-backend-course/notes-memory-core)
 
 ---
 
-### **3. Notes Memory Core**  
-Base CRUD service with Postgres, Fiber, logging, metrics, and clean service layout.  
-📌 https://github.com/ai-backend-course/notes-memory-core
+### **3. AI Embedding Microservice**
+
+A dedicated embedding service supporting mock and real OpenAI embeddings, with validation, rate limiting, and observability.
+
+📌 [https://github.com/ai-backend-course/ai-embedding-microservice](https://github.com/ai-backend-course/ai-embedding-microservice)
 
 ---
 
-### **4. AI Summary Service**  
-LLM-powered summarization microservice with mock/real model layers.  
-📌 https://github.com/ai-backend-course/ai-summary-service
+### **4. AI Summary Service**
+
+An LLM-powered summarization microservice used to condense retrieved context before response generation.
+
+📌 [https://github.com/ai-backend-course/ai-summary-service](https://github.com/ai-backend-course/ai-summary-service)
+
+---
+
+### **5. Workflow / Orchestration Service (Supporting Project)**
+
+A lightweight orchestration layer that coordinates retrieval and summarization services, applies evaluation, and produces structured responses.
+
+This service is **not the core focus** of the portfolio, but demonstrates how multiple AI backend services can be coordinated in a controlled workflow.
+
+📌 [https://github.com/ai-backend-course/agentic-workflow-service](https://github.com/ai-backend-course/agentic-workflow-service)
+🌐 [https://agentic-workflow-service.fly.dev](https://agentic-workflow-service.fly.dev)
 
 ---
 
 # 🚀 Skills Demonstrated
 
-- Go (Golang) backend development  
-- Fiber v2: routing, middleware, handlers  
-- Postgres 16 + pgxpool  
-- pgvector vector search & cosine similarity  
-- AI microservice architecture  
-- OpenAI embeddings + GPT-4o-mini  
-- Docker + multi-stage builds  
-- Fly.io deployment  
-- Logging (Zerolog)  
-- In-memory metrics & observability  
-- Production API structure  
-- RAG architecture end-to-end  
+* Go (Golang) backend development
+* Fiber v2: routing, middleware, handlers
+* Retrieval-Augmented Generation (RAG) architecture
+* Embeddings and vector search (pgvector)
+* Service-to-service AI backend design
+* Postgres 16 + pgxpool
+* Semantic search and top-K retrieval
+* AI summarization pipelines
+* Docker + multi-stage builds
+* Fly.io production deployment
+* TLS and container runtime configuration
+* Logging, tracing, and observability
+* Clean, production-oriented API design
 
 ---
 
 # 🏆 About This Portfolio
 
-This organization showcases a real, deployable ecosystem powering a complete AI backend stack, designed with:
+This portfolio is centered on **RAG-first AI backend systems**, reflecting how many real-world AI applications are built today.
 
-- Clean architecture  
-- Clear API boundaries  
-- Real deployments  
-- Consistent documentation  
-- Reproducible environments  
-- Industry-ready patterns  
+The projects emphasize:
 
-Each project is built to mirror the expectations of junior–mid Go backend and AI backend engineering roles.
+* Clear API boundaries
+* Production-ready backend patterns
+* Deployable services
+* Explainable AI pipelines
+* Incremental system design
+
+The orchestration layer is included to show **service coordination and workflow control**, while the primary strength remains **retrieval, data grounding, and backend reliability**.
+
+This work aligns with **AI Backend Engineer**, **Backend Engineer (AI-enabled systems)**, and **RAG-focused roles**.
 
 ---
 
-# 📬 Contact 
-
-Add only if you want employers to contact you:
+# 📬 Contact
 
 ```
 Jeff Ellis  
