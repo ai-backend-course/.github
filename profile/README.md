@@ -20,7 +20,7 @@ flowchart TD
     end
 
     subgraph NotesMemoryCore[Notes Memory Core API]
-        N1[CRUD: Create / Get Notes]
+        N1[CRUD Create / Get Notes]
         N2[Postgres Storage]
     end
 
@@ -29,9 +29,9 @@ flowchart TD
         E2[Mock or Real Embeddings]
     end
 
-    subgraph RAGCore[Notes Memory Core — RAG Extension]
+    subgraph RAGCore[Notes Memory Core - RAG Extension]
         R1[Generate Embeddings]
-        R2[Semantic Search (pgvector)]
+        R2[Semantic Search using pgvector]
         R3[Top-K Retrieval]
     end
 
@@ -43,7 +43,7 @@ flowchart TD
     subgraph Orchestration[Workflow / Orchestration Layer]
         O1[Intent Detection]
         O2[Service Coordination]
-        O3[Evaluation & Tracing]
+        O3[Evaluation and Tracing]
     end
 
     Clients -->|Create Notes| NotesMemoryCore
@@ -56,6 +56,7 @@ flowchart TD
     Orchestration --> RAGCore
     Orchestration --> SummaryService
     Orchestration --> Clients
+
 ```
 
 ---
