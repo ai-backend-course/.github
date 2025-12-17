@@ -12,50 +12,27 @@ All services are containerized, deployed, documented, and built with production 
 # 🌐 System Architecture Overview
 
 ```mermaid
-flowchart TD
+flowchart LR
 
-    subgraph Clients
-        A[Client / Browser]
-        B[Internal Systems]
+    Client[Client / App]
+
+    subgraph RAG_Backend[RAG Backend]
+        Notes[Notes API]
+        VectorSearch[Semantic Search]
     end
 
-    subgraph NotesMemoryCore[Notes Memory Core API]
-        N1[CRUD Create / Get Notes]
-        N2[Postgres Storage]
-    end
+    Embeddings[Embedding Service]
+    Summary[Summary Service]
+    Orchestrator[Workflow Orchestrator]
 
-    subgraph EmbeddingService[AI Embedding Microservice]
-        E1[POST /embed]
-        E2[Mock or Real Embeddings]
-    end
+    Client --> Orchestrator
+    Orchestrator --> VectorSearch
+    VectorSearch --> Embeddings
+    Orchestrator --> Summary
+    Orchestrator --> Client
 
-    subgraph RAGCore[Notes Memory Core - RAG Extension]
-        R1[Generate Embeddings]
-        R2[Semantic Search using pgvector]
-        R3[Top-K Retrieval]
-    end
+    Notes --> Embeddings
 
-    subgraph SummaryService[AI Summary Service]
-        S1[POST /summary]
-        S2[LLM Summaries]
-    end
-
-    subgraph Orchestration[Workflow / Orchestration Layer]
-        O1[Intent Detection]
-        O2[Service Coordination]
-        O3[Evaluation and Tracing]
-    end
-
-    Clients -->|Create Notes| NotesMemoryCore
-    NotesMemoryCore --> EmbeddingService
-
-    Clients -->|Query| RAGCore
-    RAGCore --> EmbeddingService
-    RAGCore --> SummaryService
-
-    Orchestration --> RAGCore
-    Orchestration --> SummaryService
-    Orchestration --> Clients
 
 ```
 
