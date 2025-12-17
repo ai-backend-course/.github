@@ -16,23 +16,22 @@ flowchart LR
 
     Client[Client / App]
 
-    subgraph RAG_Backend[RAG Backend]
-        Notes[Notes API]
-        VectorSearch[Semantic Search]
-    end
-
-    Embeddings[Embedding Service]
+    RAG[RAG Backend]
     Summary[Summary Service]
     Orchestrator[Workflow Orchestrator]
+    Embeddings[Embedding Service]
 
-    Client --> Orchestrator
-    Orchestrator --> VectorSearch
-    VectorSearch --> Embeddings
+    Client --> RAG
+    RAG --> Client
+
+    Client --> Summary
+
+    Orchestrator --> RAG
     Orchestrator --> Summary
     Orchestrator --> Client
 
-    Notes --> Embeddings
-
+    %% Standalone utility
+    Embeddings
 
 ```
 
