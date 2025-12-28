@@ -90,6 +90,15 @@ This service is **not the core focus** of the portfolio, but demonstrates how mu
 
 ---
 
+### **7. Go + AWS Serverless Backend (Supporting Project)**
+A small Go backend running on AWS Lambda that persists data to DynamoDB and publishes asynchronous messages to SQS.
+
+Designed to demonstrate core cloud-native backend fundamentals including stateless services, failure-aware design, clean separation of concerns, and AWS service integration.
+
+📌 https://github.com/ai-backend-course/go-aws-backend-fundamentals
+
+---
+
 ## 🚀 Skills Demonstrated
 
 * Go (Golang) backend development
@@ -106,6 +115,12 @@ This service is **not the core focus** of the portfolio, but demonstrates how mu
 * TLS and container runtime configuration
 * Logging, tracing, and observability
 * Clean, production-oriented API design
+* AWS Lambda (serverless execution)
+* Amazon DynamoDB (NoSQL persistence)
+* Amazon SQS (asynchronous messaging)
+* AWS IAM (least-privilege service roles)
+* Cloud-native, stateless backend design
+
 
 ---
 
